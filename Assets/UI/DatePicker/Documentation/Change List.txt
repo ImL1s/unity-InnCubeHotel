@@ -1,0 +1,28 @@
+V1.03
+------------------------------------------------------------------------------
+- Added new options to Config -> Sizing which allow you to control the width
+  of the DatePicker itself independently of the input field in Popup DatePickers
+- Added a new option to Config -> Input Field which allows you to control
+  the positioning of the DatePicker relative to the Input Field container
+  (Specifically, Left-aligned, Center-aligned, and Right-aligned). This will only
+  have a visible effect if the DatePicker's width has been set (as above).
+------------------------------------------------------------------------------
+
+V1.02
+------------------------------------------------------------------------------
+- Fixed a bug when using very high (or very low) resolutions which prevented
+  DatePicker popups from appearing in the correct location relative to their
+  InputField
+------------------------------------------------------------------------------
+
+V1.01
+------------------------------------------------------------------------------
+- Added the ToDate and FromDate properties to DatePicker_DateRange to make it
+  easier to configure
+- Made a few minor adjustments to improve optional integration with XmlLayout.
+------------------------------------------------------------------------------
+
+V1.00
+------------------------------------------------------------------------------
+- Initial Release
+------------------------------------------------------------------------------
