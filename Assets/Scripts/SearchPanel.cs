@@ -6,40 +6,6 @@ using System;
 
 public class SearchPanel : MonoBehaviour
 {
-    /// <summary>
-    /// 國家
-    /// </summary>
-    public enum National
-    {
-        None = 0,
-        China = 1,
-        HongKong = 2,
-        Japan = 3,
-        Korea = 4,
-        Thailand = 5,
-        Mongolia = 6,
-        Vietnam = 7,
-        Indonesia = 8,
-        Singapore = 9,
-        Malaysia = 10,
-        England = 11,
-        French = 12,
-        Germany = 13,
-        Poland = 14,
-        Denmark = 15,
-        Sweden = 16,
-        Norway = 17,
-        Russia = 18,
-        Turkey = 19,
-        Spain = 20,
-        Portugal = 21,
-        Italy = 22,
-        Austria = 23,
-        America = 24,
-        Mexico = 25,
-        Canada = 26
-    }
-
     [SerializeField] private DatePicker datePicker;
     [SerializeField] private Toggle toggleM;
     [SerializeField] private Toggle toggleF;
@@ -68,7 +34,7 @@ public class SearchPanel : MonoBehaviour
     /// </summary>
     private void InitNationalityDropdown()
     {
-        Array nationalArray = Enum.GetValues(typeof(National));
+        Array nationalArray = Enum.GetValues(typeof(ENational));
 
         foreach (var national in nationalArray)
         {

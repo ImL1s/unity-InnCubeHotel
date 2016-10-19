@@ -70,9 +70,15 @@
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\Plugins\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Customer.cs" />
     <Compile Include="Assets\Scripts\SearchPanel.cs" />
+    <Compile Include="Assets\Scripts\StorageManager.cs" />
+    <Compile Include="Assets\Scripts\TestDataStroage.cs" />
     <Compile Include="Assets\UI\DatePicker\DatePicker.cs" />
     <Compile Include="Assets\UI\DatePicker\DatePickerCache.cs" />
     <Compile Include="Assets\UI\DatePicker\DatePickerTimer.cs" />
