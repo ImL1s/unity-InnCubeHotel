@@ -10,6 +10,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System;
 
 public class StorageManager
 {
@@ -24,7 +25,6 @@ public class StorageManager
     private static StorageManager instance = null;
 
     #endregion
-
 
     #region property
 
@@ -59,6 +59,25 @@ public class StorageManager
     {
         return Instance.InnerGetAllCoustomer();
     }
+
+	/// <summary>
+	/// 取得指定的客戶資料
+	/// </summary>
+	/// <returns>The assign.</returns>
+	public static List<Customer> GetAssign(Customer customer)
+	{
+		return Instance.InnerGetAssign (customer);
+	}
+
+	/// <summary>
+	/// 刪除客戶資料
+	/// </summary>
+	/// <returns><c>true</c>, if coustomer was deleted, <c>false</c> otherwise.</returns>
+	/// <param name="dateTime">Date time.</param>
+	public static bool DeleteCoustomer(DateTime dateTime)
+	{
+		return Instance.InnerDeleteCoustomer (dateTime);
+	}
 
     #endregion
 
@@ -128,6 +147,63 @@ public class StorageManager
 
         return JsonConvert.DeserializeObject<List<Customer>>(currentCoustomerJson);
     }
+
+	/// <summary>
+	/// 刪除客戶資料
+	/// </summary>
+	/// <returns><c>true</c>, if delete coustomer was innered, <c>false</c> otherwise.</returns>
+	/// <param name="dateTime">Date time.</param>
+	private bool InnerDeleteCoustomer (DateTime dateTime)
+	{
+		List<Customer> customerList = GetCustomers ();
+
+		List<Customer> saveCustomerList = customerList.FindAll (c => !(c.CheckInTime.Date == dateTime.Date) );
+
+		if (saveCustomerList.Count == customerList.Count)
+			return false;
+
+		string json = JsonConvert.SerializeObject(saveCustomerList);
+		SaveStringData(CustomerKey, json);
+
+		return true;
+	}
+
+
+	/// <summary>
+	/// 取得之前存在的顧客資料
+	/// </summary>
+	/// <returns>The customers.</returns>
+	private List<Customer> GetCustomers()
+	{
+		string jsonCoustomers = GetStringData(CustomerKey);
+
+		List<Customer> coustomerList;
+
+		// 第一次加入資料的操作
+		if (string.IsNullOrEmpty(jsonCoustomers))
+		{
+			coustomerList = new List<Customer>();
+		}
+		else
+		{
+			coustomerList = JsonConvert.DeserializeObject<List<Customer>>(jsonCoustomers);
+		}
+
+		return coustomerList;
+	}
+
+	/// <summary>
+	/// 取得指定的客戶資料
+	/// </summary>
+	/// <returns>The assign.</returns>
+	private List<Customer> InnerGetAssign(Customer assignCustomer)
+	{
+		List<Customer> allCustomerList = InnerGetAllCoustomer ();
+		List<Customer> assignCustomerList = allCustomerList.FindAll
+			(c => (c.CheckInTime.Date == assignCustomer.CheckInTime.Date || c.Identity == assignCustomer.Identity || c.Name == assignCustomer.Name) );
+
+		return assignCustomerList;
+	}
 
     #endregion
 

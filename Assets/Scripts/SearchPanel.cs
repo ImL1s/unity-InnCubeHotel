@@ -3,9 +3,13 @@ using System.Collections;
 using UI.Dates;
 using UnityEngine.UI;
 using System;
+using System.Collections.Generic;
 
 public class SearchPanel : MonoBehaviour
 {
+	[SerializeField] private GameObject revealPanelGO;
+	[SerializeField] private RevealPanel revealPanel;
+
     [SerializeField] private DatePicker datePicker;
     [SerializeField] private Toggle toggleM;
     [SerializeField] private Toggle toggleF;
@@ -52,7 +56,34 @@ public class SearchPanel : MonoBehaviour
 
         print("Succ");
 
+		DateTime checkInTime = datePicker.SelectedDate.Date;
+		EGender gender = toggleF.isOn ? EGender.Female : EGender.Male;
+		String name = nameInputField.text.Trim();
+		ENational national = (ENational)nationalityDropdown.value;
+		String identity = passportInputField.text.Trim();
+
+		Debug.Log (string.Format ("CheckInTime: {0} Gender: {1} Name: {2} National: {3} Identity: {4}", 
+			checkInTime.ToString (),
+			gender.ToString (),
+			name,
+			national.ToString (),
+			identity));
+
+		Customer searchCustomer = new Customer () 
+		{
+			Name = name,
+			Gender = gender,
+			CheckInTime = checkInTime,
+			National = national,
+			Identity = identity
+		};
+
+		List<Customer> assignList = StorageManager.GetAssign (searchCustomer);
+		revealPanelGO.gameObject.SetActive (true);
+		revealPanel.SetData (assignList);
     }
+
+
 
     /// <summary>
     /// 檢查欄位是否正確
