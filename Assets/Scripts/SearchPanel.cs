@@ -29,8 +29,6 @@ public class SearchPanel : MonoBehaviour
         InitNationalityDropdown();
 
         submitButton.onClick.AddListener(OnSubmitButtonClick);
-
-
     }
 
     /// <summary>
@@ -104,7 +102,15 @@ public class SearchPanel : MonoBehaviour
 
     void Update ()
     {
-	
+		CheckInput ();
+	}
+
+	private void CheckInput()
+	{
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			this.gameObject.SetActive (false);
+		}
 	}
 
 }

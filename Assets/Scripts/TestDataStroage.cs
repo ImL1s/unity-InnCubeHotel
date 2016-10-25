@@ -17,14 +17,17 @@ public class TestDataStroage : MonoBehaviour
 
 	private void TestAdd ()
 	{
-		StorageManager.AddCoustomer (new Customer () {
+		Customer customer = new Customer () {
 			Name = "皮卡丘",
 			CheckInTime = System.DateTime.Now,
 			Gender = EGender.Female,
 			Identity = "A127456789",
 			National = ENational.Austria,
 			RoomInfo = "5F A區"
-		});
+		};
+
+		StorageManager.AddCoustomer (customer);
+		Debug.Log ("Add a customer: " +customer.Name);
 	}
 
 	private void TestGet ()

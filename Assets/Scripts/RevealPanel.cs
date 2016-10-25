@@ -20,4 +20,16 @@ public class RevealPanel : MonoBehaviour
 			instance.GetComponent<DataItem> ().SetData (customer);
 		}
 	}
+
+	void Update ()
+	{
+		CheckInput ();
+	}
+
+	private void CheckInput ()
+	{
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			this.gameObject.SetActive (false);
+		}
+	}
 }
