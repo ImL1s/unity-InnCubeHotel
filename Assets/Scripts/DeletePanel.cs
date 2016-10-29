@@ -2,6 +2,7 @@
 using System.Collections;
 using UI.Dates;
 using UnityEngine.UI;
+using System;
 
 public class DeletePanel : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class DeletePanel : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		YSFramework.Utils.Utils.SetDataPicker (picker);
+
 		submitBtn.onClick.AddListener (() => 
 		{
 				bool succ = StorageManager.DeleteCoustomer(picker.SelectedDate.Date);

@@ -34,6 +34,9 @@ public class AddPanel : MonoBehaviour
 	{
 		InitNationalityDropdown ();
 
+
+		YSFramework.Utils.Utils.SetDataPicker (datePicker);
+
 		submitButton.onClick.AddListener (OnSubmitButtonClick);
 	}
 
