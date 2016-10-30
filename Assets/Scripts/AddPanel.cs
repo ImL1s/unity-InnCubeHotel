@@ -40,6 +40,20 @@ public class AddPanel : MonoBehaviour
 		submitButton.onClick.AddListener (OnSubmitButtonClick);
 	}
 
+	void OnEnable()
+	{
+		SerializableDate date = new SerializableDate();
+		datePicker.SelectedDate = date;
+		datePicker.UpdateDisplay ();
+		toggleM.isOn = false;
+		toggleF.isOn = false;
+		nameInputField.text = "";
+		nationalityDropdown.value = 0;
+		passportInputField.text = "";
+		RoomInfoInputField.text = string.Empty;
+
+	}
+
 	/// <summary>
 	/// 初始化國家下拉列表
 	/// </summary>
@@ -62,13 +76,15 @@ public class AddPanel : MonoBehaviour
 	{
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
+			datePicker.Hide ();
 			this.gameObject.SetActive (false);
 		}
 	}
 
 	private void OnSubmitButtonClick ()
 	{
-		if (!Check ()) {
+		if (!Check ()) 
+		{
 			print ("Check faild");
 			return;
 		}
@@ -99,7 +115,10 @@ public class AddPanel : MonoBehaviour
 
 		bool succ = StorageManager.AddCoustomer (addCustomer);
 
-		print (succ ? "加入成功" : "加入失敗");
+		string displayStr = succ ? "加入成功" : "加入失敗";
+		NativeManager.ShowToast (displayStr);
+		print (displayStr);
+
 
 //		List<Customer> assignList = StorageManager.GetAssign (searchCustomer);
 //		revealPanelGO.gameObject.SetActive (true);
@@ -116,7 +135,7 @@ public class AddPanel : MonoBehaviour
 		if (!toggleF.isOn && !toggleM.isOn) return false;
 		if (string.IsNullOrEmpty(nameInputField.text.Trim())) return false;
 		if (nationalityDropdown.value == (int)ENational.None) return false;
-		if (string.IsNullOrEmpty(passportInputField.text.Trim())) return false;
+//		if (string.IsNullOrEmpty(passportInputField.text.Trim())) return false;
 
 		return true;
 	}

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class RevealPanel : MonoBehaviour
 {
+	private List<GameObject> instanceList = new List<GameObject>();
+
 	[SerializeField] private GameObject contentGO;
 	[SerializeField] private GameObject dataItemPrefab;
 
@@ -11,6 +13,13 @@ public class RevealPanel : MonoBehaviour
 
 	public void SetData(List<Customer> customers)
 	{
+		if(instanceList.Count != 0)
+		{
+			foreach (var item in instanceList) 
+			{
+				GameObject.Destroy (item);	
+			}	
+		}
 
 		foreach (var customer in customers) 
 		{
@@ -18,6 +27,8 @@ public class RevealPanel : MonoBehaviour
 			instance.transform.parent = contentGO.transform;
 			instance.transform.localScale = Vector3.one;
 			instance.GetComponent<DataItem> ().SetData (customer);
+
+			instanceList.Add (instance);
 		}
 	}
 
@@ -29,6 +40,7 @@ public class RevealPanel : MonoBehaviour
 	private void CheckInput ()
 	{
 		if (Input.GetKeyDown (KeyCode.Escape)) {
+			
 			this.gameObject.SetActive (false);
 		}
 	}

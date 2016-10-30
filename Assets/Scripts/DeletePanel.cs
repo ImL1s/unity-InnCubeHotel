@@ -20,7 +20,15 @@ public class DeletePanel : MonoBehaviour
 				bool succ = StorageManager.DeleteCoustomer(picker.SelectedDate.Date);
 
 				print("Delete :"+succ);
+				NativeManager.ShowToast("Delete :" + (succ?"成功":"失敗"));
 		});
+	}
+
+	void OnEnable()
+	{
+		SerializableDate date = new SerializableDate();
+		picker.SelectedDate = date;
+		picker.UpdateDisplay ();
 	}
 	
 	// Update is called once per frame
@@ -32,6 +40,7 @@ public class DeletePanel : MonoBehaviour
 	private void CheckInput ()
 	{
 		if (Input.GetKeyDown (KeyCode.Escape)) {
+			picker.Hide ();
 			this.gameObject.SetActive (false);
 		}
 	}

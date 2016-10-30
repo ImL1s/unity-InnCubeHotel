@@ -7,6 +7,8 @@ using System.Collections.Generic;
 
 public class SearchPanel : MonoBehaviour
 {
+	private bool isSelectedDate = false;
+
 	[SerializeField] private GameObject revealPanelGO;
 	[SerializeField] private RevealPanel revealPanel;
 
@@ -20,18 +22,36 @@ public class SearchPanel : MonoBehaviour
 
 
     void Awake()
-    {
+	{
         datePicker = transform.Find("DatePicker - Popup").GetComponent<DatePicker>();
     }
+		
+	
 
 	void Start ()
     {
         InitNationalityDropdown();
 
 		YSFramework.Utils.Utils.SetDataPicker (datePicker);
+		datePicker.Config.Events.OnDaySelected.AddListener (time => {
+			isSelectedDate = true;	
+		});
 
         submitButton.onClick.AddListener(OnSubmitButtonClick);
     }
+
+	void OnEnable()
+	{
+		SerializableDate date = new SerializableDate();
+		datePicker.SelectedDate = date;
+		datePicker.UpdateDisplay ();
+		toggleM.isOn = false;
+		toggleF.isOn = false;
+		nameInputField.text = "";
+		nationalityDropdown.value = 0;
+		passportInputField.text = "";
+
+	}
 
     /// <summary>
     /// 初始化國家下拉列表
@@ -56,7 +76,7 @@ public class SearchPanel : MonoBehaviour
 
         print("Succ");
 
-		DateTime checkInTime = datePicker.SelectedDate.Date;
+		DateTime checkInTime = isSelectedDate ? datePicker.SelectedDate.Date : default(DateTime);
 		EGender gender = toggleF.isOn ? EGender.Female : EGender.Male;
 		String name = nameInputField.text.Trim();
 		ENational national = (ENational)nationalityDropdown.value;
@@ -105,12 +125,16 @@ public class SearchPanel : MonoBehaviour
     void Update ()
     {
 		CheckInput ();
+//		DateTime a;
+//		DateTime b = default(DateTime);
+//		print (a = datePicker.SelectedDate.Date);
 	}
 
 	private void CheckInput()
 	{
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
+			datePicker.Hide ();
 			this.gameObject.SetActive (false);
 		}
 	}

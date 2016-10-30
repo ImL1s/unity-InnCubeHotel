@@ -18,7 +18,7 @@ namespace UI.Dates
                 }
 
                 return m_Date.Value;*/                
-
+				
                 return DateTime.ParseExact(m_SerializedDate, DatePickerUtilities.DateFormat, null);
             }
             set

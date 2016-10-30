@@ -21,6 +21,7 @@ public class DataItem : MonoBehaviour
 		dateTxt = transform.Find ("DateText").GetComponent<Text> ();
 	}
 
+
 	public void SetData(Customer customer)
 	{
 		this.nameTxt.text = customer.Name;
