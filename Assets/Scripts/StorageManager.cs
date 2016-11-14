@@ -203,7 +203,19 @@ public class StorageManager
 	{
 		List<Customer> allCustomerList = InnerGetAllCoustomer ();
 		List<Customer> assignCustomerList = allCustomerList.FindAll
-			(c => (c.CheckInTime.Date == assignCustomer.CheckInTime.Date || c.Identity == assignCustomer.Identity || c.Name == assignCustomer.Name));
+			(c => (
+		                                        (c.CheckInTime == default(DateTime) ? false : (c.CheckInTime.Date.Date == assignCustomer.CheckInTime.Date.Date)) ||
+		                                        (string.IsNullOrEmpty (c.Identity) ? false : (c.Identity == assignCustomer.Identity)) ||
+		                                        (string.IsNullOrEmpty (c.Name) ? false : (c.Name == assignCustomer.Name)) ||
+		                                        (c.Gender == EGender.None ? false : (c.Gender == assignCustomer.Gender))
+		                                    ));
+
+		foreach (var item in allCustomerList) {
+			bool temp1 = item.CheckInTime == default(DateTime);
+			bool temp2 = item.CheckInTime.Date == assignCustomer.CheckInTime;
+			bool temp3 = (item.CheckInTime == default(DateTime) ? false : (item.CheckInTime.Date.Date == assignCustomer.CheckInTime.Date.Date)) ||
+			             (string.IsNullOrEmpty (item.Identity) ? false : (item.Identity == assignCustomer.Identity));
+		}
 
 		return assignCustomerList;
 	}

@@ -77,7 +77,7 @@ public class SearchPanel : MonoBehaviour
         print("Succ");
 
 		DateTime checkInTime = isSelectedDate ? datePicker.SelectedDate.Date : default(DateTime);
-		EGender gender = toggleF.isOn ? EGender.Female : EGender.Male;
+		EGender gender = GetGender ();
 		String name = nameInputField.text.Trim();
 		ENational national = (ENational)nationalityDropdown.value;
 		String identity = passportInputField.text.Trim();
@@ -103,6 +103,13 @@ public class SearchPanel : MonoBehaviour
 		revealPanel.SetData (assignList);
     }
 
+	private EGender GetGender()
+	{
+		if (!toggleF.isOn && !toggleM.isOn)
+			return EGender.None;
+
+		return toggleF.isOn ? EGender.Female : EGender.Male;
+	}
 
 
     /// <summary>
